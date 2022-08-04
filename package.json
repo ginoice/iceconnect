@@ -2,13 +2,28 @@
   "name": "iceconnect",
   "version": "1.0.0",
   "description": "Ginoice - Blockchain developers team. Smart contracts, Dapps, NFTs, tokens, tools and scripts.",
-  "main": "index.ts",
+  "main": "dist/js/index.js",
+  "module": "dist/js/index.js",
+  "prepublish": "npm run build",
   "scripts": {
     "lint": "eslint . --ext .ts",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "serve": "cross-env NODE_ENV=development webpack serve --mode development"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ginoice/iceconnect"
+  },
+  "keywords": [
+    "iceconnect",
+    "ginoice",
+    "connect-wallet",
+    "web3",
+    "ethers",
+    "connect",
+    "ginoice-team"
+  ],
   "author": "Ginoice Team",
   "license": "ISC",
   "devDependencies": {

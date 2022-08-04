@@ -15,6 +15,12 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: './js/index.js',
+    library: 'icewallet',
+    libraryExport: 'default',
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
+    globalObject: 'typeof self === \'undefined\' ? this : self',
+
   },
   module: {
     rules: [

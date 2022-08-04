@@ -3,74 +3,67 @@ import { IRender, IRenderStyle } from '../interface/Igwallet'
 export class RenderStyle implements IRenderStyle {
   style ():string {
     return `
-    .gwallet-wrapper {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1000;
-      background: rgba(244, 238, 255, 0.6);
-    }
-    .gwallet-body {
-      min-height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 5px;
-    }
-    .gwallet-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      padding: 20px;
-      max-width: 320px;
-      width: 100%;
-      background-color: rgb(82, 107, 240);;
-      border-radius: 20px;
-    }
-
-    .gwallet-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      cursor: pointer;
-      border-radius: 20px;
-      padding: 15px 0;
-      transition: background .3s ease;
-    }
-
-    .gwallet-item + .gwallet-item {
-      margin-top: 10px
-    }
-
-    @media (any-hover: hover) {
-      .gwallet-item:hover {
+      .gwallet-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
         background: rgba(244, 238, 255, 0.6);
       }
-    }
+      .gwallet-body {
+        min-height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+      }
+      .gwallet-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
-    .description {
-      color: #fff;
-    }
-
-    .gwallet-info {
-      margin-top: 30px;
-      color: #fff;
-      text-align: center;
-      text-decoration: none;
-    }
-
-    .gwallet-metamask {
-    }
-
-    .gwallet-walletconnect {
-    }
-  `
+        padding: 20px;
+        max-width: 320px;
+        width: 100%;
+        background-color: rgb(82, 107, 240);;
+        border-radius: 20px;
+      }
+      .gwallet-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        cursor: pointer;
+        border-radius: 20px;
+        padding: 15px 0;
+        transition: background .3s ease;
+      }
+      .gwallet-item + .gwallet-item {
+        margin-top: 10px
+      }
+      @media (any-hover: hover) {
+        .gwallet-item:hover {
+          background: rgba(244, 238, 255, 0.6);
+        }
+      }
+      .description {
+        color: #fff;
+      }
+      .gwallet-info {
+        margin-top: 30px;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+      }
+      .gwallet-metamask {
+      }
+      .gwallet-walletconnect {
+      }
+    `
   }
 }
 

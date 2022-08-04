@@ -1,4 +1,10 @@
 import { Wallet } from "./lib/wallet"
+import { ethers } from "ethers"
+
+export {
+  Wallet,
+  ethers
+}
 
 const wallet = new Wallet ({
   RPC_URL: 'https://rinkeby.infura.io/v3/',
