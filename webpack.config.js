@@ -9,16 +9,13 @@ const isProd = !isDev
 module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
-
   entry: {
     main: path.resolve(__dirname, './src/index.ts')
   },
-
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: './js/index.js',
   },
-
   module: {
     rules: [
       {
@@ -47,7 +44,6 @@ module.exports = {
     alias: {
       process: "process/browser"
     },
-
     fallback: {
       "url": require.resolve("url/"),
       "stream": require.resolve("stream-browserify"),

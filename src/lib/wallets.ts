@@ -76,7 +76,7 @@ export class Wallets implements IWallets {
     const provider:any = new WalletConnectProvider({
       infuraId: this.INFURA_ID,
       rpc: {
-        [this.NETWORK_ID]: this.RPC_URL
+        [Number(this.NETWORK_ID)]: this.RPC_URL
       },
       qrcodeModalOptions: {
         mobileLinks: [
