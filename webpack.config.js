@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack')
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = ({ development }) => ({
@@ -29,6 +30,14 @@ module.exports = ({ development }) => ({
       "assert": require.resolve("assert/"),
     }
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
+  ],
   module: {
     rules: [
       {
