@@ -5,3 +5,8 @@ export {
   Wallet,
   ethers
 }
+
+export default {
+  Wallet,
+  ethers
+}

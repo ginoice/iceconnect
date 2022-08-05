@@ -1,6 +1,6 @@
 {
   "name": "iceconnect",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Ginoice - Blockchain developers team. Smart contracts, Dapps, NFTs, tokens, tools and scripts.",
   "main": "dist/js/index.js",
   "module": "dist/js/index.js",
