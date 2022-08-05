@@ -16,7 +16,11 @@ export class RenderStyle implements IRenderStyle {
       min-height: 100%;
       display: flex;
       justify-content: center;
+      flex-direction: column;
       align-items: center;
+      padding: 5px;
+    }
+    .close-btn {
       padding: 5px;
     }
     .gwallet-content {
@@ -80,7 +84,6 @@ export class Render implements IRender {
   bodyMainElement: HTMLDivElement  = document.createElement('div')
   renderStyle: IRenderStyle = new RenderStyle()
   style: HTMLStyleElement = document.createElement('style')
-  
   render ():void {
     this.style.insertAdjacentHTML('afterbegin', this.renderStyle.style())
 
@@ -90,7 +93,6 @@ export class Render implements IRender {
 
     const bodyWallet: HTMLDivElement = document.createElement('div')
     bodyWallet.setAttribute('class', 'gwallet-body')
-
     const contentWallet: HTMLDivElement = document.createElement('div')
     contentWallet.setAttribute('class', 'gwallet-content')
 

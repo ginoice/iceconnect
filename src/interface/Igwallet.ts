@@ -43,3 +43,9 @@ export interface IWallet {
   MetaMask (): void
   WalletConnect ():void
 }
+
+export interface ProviderRpcError extends Error {
+  message: string;
+  code: number;
+  data?: unknown;
+}

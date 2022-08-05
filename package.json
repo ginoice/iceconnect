@@ -32,17 +32,20 @@
     "webpack-dev-server": "^4.9.2"
   },
   "dependencies": {
+    "@metamask/detect-provider": "^1.2.0",
     "@metamask/providers": "^9.0.0",
     "@walletconnect/web3-provider": "^1.7.8",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
     "ethers": "^5.6.8",
     "https-browserify": "^1.0.0",
+    "iceconnect": "^1.0.0",
     "os-browserify": "^0.3.0",
     "process": "^0.11.10",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "url": "^0.11.0",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "web3modal": "^1.9.8"
   }
 }

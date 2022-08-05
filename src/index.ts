@@ -1,3 +1,5 @@
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import { ProviderRpcError } from "./interface/Igwallet";
 import { Wallet } from "./lib/wallet"
 
 const wallet = new Wallet ({
@@ -12,7 +14,13 @@ const wallet = new Wallet ({
 })
 
 const button: HTMLButtonElement = document.querySelector('.button')
+const buttonClose: HTMLButtonElement = document.querySelector('.closeButton')
+
 
 button.addEventListener('click', async () => {
-  await wallet.ConnectWallet()
+  await wallet.ConnectWallet();
+})
+
+buttonClose.addEventListener('click', async () => {
+  await wallet.Disconnect();
 })
