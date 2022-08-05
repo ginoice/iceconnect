@@ -8,11 +8,19 @@ import { Render } from "./render";
 import { Wallets } from "./wallets";
 
 export class Wallet implements IWallet {
+<<<<<<< HEAD
   RPC_URL: string;
   NETWORK_ID: string;
   INFURA_ID: string;
   render: IRender = new Render();
   hooks: IStatusHandlers;
+=======
+  RPC_URL: string
+  NETWORK_ID: string
+  INFURA_ID: any
+  render: IRender = new Render()
+  hooks: IStatusHandlers
+>>>>>>> aee012ccb7fc658fd7a798a989612d244c861bf4
 
   constructor(options: IOptions) {
     this.RPC_URL = options.RPC_URL;

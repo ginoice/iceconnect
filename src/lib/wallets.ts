@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 import { ethers, providers } from "ethers";
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { IStatusHandlers, IWallets, ProviderRpcError } from "../interface/Igwallet";
+=======
+import { ethers } from "ethers"
+import WalletConnectProvider from "@walletconnect/web3-provider"
+import { IStatusHandlers, IWallets } from "../interface/Igwallet"
+>>>>>>> aee012ccb7fc658fd7a798a989612d244c861bf4
 
 export class Wallets implements IWallets {
   RPC_URL: string
@@ -19,6 +25,7 @@ export class Wallets implements IWallets {
     this.statusHandlers = statusHandlers
   }
 
+<<<<<<< HEAD
   async MetaMask(): Promise<void> {
     let { ethereum }: MetaMaskInpageProvider | any = window;
     if (typeof ethereum !== "undefined") {
@@ -27,6 +34,14 @@ export class Wallets implements IWallets {
         method: "eth_requestAccounts",
       });
       if (ethereum.chainId === this.NETWORK_ID) {
+=======
+  async MetaMask(): Promise<void>  {
+    let { ethereum }: any = window
+    if (typeof ethereum !== 'undefined') {
+      this.statusHandlers.connecting('Connecting')
+      const walletAddress:string[] = await ethereum.request({ method: 'eth_requestAccounts' })
+      if (ethereum.chainId == this.NETWORK_ID) {
+>>>>>>> aee012ccb7fc658fd7a798a989612d244c861bf4
         if (walletAddress) {
           this.response = {
             walletAddress: walletAddress[0],

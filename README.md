@@ -69,9 +69,9 @@ const wallet = new Wallet ({
   NETWORK_ID: '..',
   INFURA_ID: '...',
   hooks: {
-    connecting: (res:string):void => console.log(res),
-    connectionSuccess: (success: object):void => console.log(success),
-    connectionFailed: (failed: string):void => console.log(failed)
+    connecting: (res) => console.log(res),
+    connectionSuccess: (success) => console.log(success),
+    connectionFailed: (failed) => console.log(failed)
   }
 })
 ```
@@ -80,11 +80,11 @@ const wallet = new Wallet ({
 
 ```js
   hooks: {
-    connecting: (res:string):void => console.log(res),
+    connecting: (res) => console.log(res),
     // => 'Connecting'
-    connectionSuccess: (success: object):void => console.log(success),
+    connectionSuccess: (success) => console.log(success),
     // => { walletAddress: adderss, web3Provider: provider}
-    connectionFailed: (failed: string):void => console.log(failed)
+    connectionFailed: (failed) => console.log(failed)
     // => 'Error'
   }
 ```

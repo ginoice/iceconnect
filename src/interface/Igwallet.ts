@@ -36,7 +36,7 @@ export interface IWallets {
 export interface IWallet {
   RPC_URL: string
   NETWORK_ID: string
-  INFURA_ID: string
+  INFURA_ID: any
   render: IRender
   hooks: IStatusHandlers
   ConnectWallet ():void
