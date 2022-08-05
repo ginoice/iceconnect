@@ -1,55 +1,22 @@
-const path = require('path')
+const path = require('path');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const webpack = require('webpack')
-
-const isDev = process.env.NODE_ENV === 'development'
-const isProd = !isDev
-
-module.exports = {
-  mode: 'development',
-  devtool: 'inline-source-map',
-  entry: {
-    main: path.resolve(__dirname, './src/index.ts')
-  },
+module.exports = ({ development }) => ({
+  entry: './src/index.ts',
+  devtool: development ? 'inline-source-map' : false,
+  mode: development ? 'development' : 'production',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: './js/index.js',
-    library: 'icewallet',
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'dist'),
+    library: 'index',
     libraryExport: 'default',
     libraryTarget: 'umd',
     umdNamedDefine: true,
     globalObject: 'typeof self === \'undefined\' ? this : self',
-
-  },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.(ts|js)x?$/i,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              "@babel/preset-env",
-              "@babel/preset-typescript",
-            ],
-          },
-        }
-      }
-    ],
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
 
-    alias: {
-      process: "process/browser"
-    },
     fallback: {
       "url": require.resolve("url/"),
       "stream": require.resolve("stream-browserify"),
@@ -62,27 +29,14 @@ module.exports = {
       "assert": require.resolve("assert/"),
     }
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      Buffer: ['buffer', 'Buffer'],
-    }),
-    new webpack.ProvidePlugin({
-      process: 'process/browser',
-    }),
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/index.html'),
-      filename: 'index.html',
-      minify: {
-        collapseWhitespace: isProd
-      }
-    })
-  ],
-  devServer: {
-    historyApiFallback: true,
-    static: path.resolve(__dirname, 'dist'),
-    open: true,
-    compress: true,
-    hot: true,
-    port: 4000,
-  }
-};
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: ['babel-loader', 'ts-loader'],
+      },
+    ],
+  },
+  plugins: [new ESLintPlugin({ extensions: ['ts'] })],
+});

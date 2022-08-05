@@ -1,20 +1,16 @@
 {
+  // "root": true,
   "parser": "@typescript-eslint/parser",
+  // "extends": [
+  //   "airbnb-base",
+  //   "airbnb-typescript/base",
+  //   "plugin:@typescript-eslint/eslint-recommended",
+  //   "plugin:@typescript-eslint/recommended"
+  // ],
+  // "plugins": [
+  //   "@typescript-eslint"
+  // ],
   "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module",
     "project": "./tsconfig.json"
-  },
-  "plugins": [
-    "@typescript-eslint"
-  ],
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
-  "rules": {
-    "@typescript-eslint/no-inferrable-types": ["off"],
-    "@typescript-eslint/no-explicit-any": ["off"]
   }
 }

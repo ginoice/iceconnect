@@ -5,7 +5,7 @@ import { Wallets } from './wallets'
 export class Wallet implements IWallet {
   RPC_URL: string
   NETWORK_ID: string
-  INFURA_ID: string
+  INFURA_ID: any
   render: IRender = new Render()
   hooks: IStatusHandlers
 

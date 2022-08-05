@@ -1,8 +1,6 @@
 import { ethers } from "ethers"
-import { MetaMaskInpageProvider } from "@metamask/providers"
 import WalletConnectProvider from "@walletconnect/web3-provider"
 import { IStatusHandlers, IWallets } from "../interface/Igwallet"
-
 
 export class Wallets implements IWallets {
   RPC_URL: string
@@ -21,7 +19,7 @@ export class Wallets implements IWallets {
   }
 
   async MetaMask(): Promise<void>  {
-    let { ethereum }: MetaMaskInpageProvider | any = window
+    let { ethereum }: any = window
     if (typeof ethereum !== 'undefined') {
       this.statusHandlers.connecting('Connecting')
       const walletAddress:string[] = await ethereum.request({ method: 'eth_requestAccounts' })
