@@ -1,6 +1,6 @@
 {
   "name": "iceconnect",
-  "version": "1.0.10",
+  "version": "1.1.1",
   "description": "iceconnect",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

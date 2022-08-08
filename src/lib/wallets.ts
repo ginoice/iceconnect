@@ -49,7 +49,13 @@ export class Wallets implements IWallets {
                 method: 'wallet_addEthereumChain',
                 params: [{
                   chainId: this.NETWORK_ID,
-                  rpcUrls: [`${this.RPC_URL}${this.INFURA_ID}`]
+                  rpcUrls: [`${this.RPC_URL}${this.INFURA_ID}`],
+                  chainName: "new Chain",
+                  nativeCurrency: {
+                    name: "BNB",
+                    symbol: "BNB",
+                    decimals: 18,
+                  }
                 }]
               })
               this.response = {
@@ -58,7 +64,7 @@ export class Wallets implements IWallets {
               }
               this.statusHandlers.connectionSuccess(this.response)
             } catch (err) {
-              console.log('asdasd')
+              console.log(err)
               this.statusHandlers.connectionFailed(err)
             }
           }
