@@ -49,12 +49,13 @@ export class Wallets implements IWallets {
                 method: 'wallet_addEthereumChain',
                 params: [{
                   chainId: this.NETWORK_ID,
-                  rpcUrls: [`${this.RPC_URL}${this.INFURA_ID}`],
-                  chainName: "new Chain",
+                  // rpcUrls: [`${this.RPC_URL}${this.INFURA_ID}`],
+                  rpcUrls: [`${this.RPC_URL}`],
+                  chainName: 'newChain',
                   nativeCurrency: {
-                    name: "BNB",
-                    symbol: "BNB",
-                    decimals: 18,
+                    name: "bnb",
+                    symbol: "bnb",
+                    decimals: 18
                   }
                 }]
               })
