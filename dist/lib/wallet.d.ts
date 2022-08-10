@@ -1,4 +1,4 @@
-import { IOptions, IRender, IStatusHandlers, IWallet } from '../interface/Igwallet';
+import { IOptions, IRender, IStatusHandlers, IWallet, IStatusHandlersCallBack } from '../interface/Igwallet';
 export declare class Wallet implements IWallet {
     RPC_URL: string;
     NETWORK_ID: string;
@@ -6,7 +6,7 @@ export declare class Wallet implements IWallet {
     render: IRender;
     hooks: IStatusHandlers;
     constructor(options: IOptions);
-    ConnectWallet(): void;
-    MetaMask(): void;
-    WalletConnect(): void;
+    ConnectWallet(callback: IStatusHandlersCallBack): void;
+    MetaMask(callback: IStatusHandlersCallBack): void;
+    WalletConnect(callback: IStatusHandlersCallBack): void;
 }

@@ -1,13 +1,13 @@
 {
   "name": "iceconnect",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "iceconnect",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "module": "dist/index.js",
   "prepublish": "npm run build && npm run test",
   "scripts": {
-    "dev": "webpack --env development --watch",
+    "dev": "webpack --env development",
     "build": "webpack --env production && npm run docs",
     "test": "jest --env=jsdom"
   },
@@ -65,6 +65,7 @@
     "buffer": "^6.0.3",
     "core-js": "^3.24.1",
     "ethers": "^5.6.9",
+    "html-webpack-plugin": "^5.5.0",
     "https-browserify": "^1.0.0",
     "os-browserify": "^0.3.0",
     "process": "^0.11.10",
@@ -72,6 +73,7 @@
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "url": "^0.11.0",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "webpack-dev-server": "^4.9.3"
   }
 }

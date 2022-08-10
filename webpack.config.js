@@ -36,7 +36,7 @@ module.exports = ({ development }) => ({
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
-    }),
+    })
   ],
   module: {
     rules: [

@@ -1,6 +1,6 @@
 import { ethers } from "ethers"
 import WalletConnectProvider from "@walletconnect/web3-provider"
-import { IStatusHandlers, IWallets } from "../interface/Igwallet"
+import { IStatusHandlers, IWallets, IStatusHandlersCallBack } from "../interface/Igwallet"
 
 export class Wallets implements IWallets {
   RPC_URL: string
@@ -8,15 +8,24 @@ export class Wallets implements IWallets {
   INFURA_ID: string
   response: any
   statusHandlers: IStatusHandlers
+  callback: IStatusHandlersCallBack
 
-  constructor (RPC_URL: string, NETWORK_ID: string, INFURA_ID: string, statusHandlers: IStatusHandlers) {
-    this.RPC_URL = RPC_URL
-    this.NETWORK_ID = NETWORK_ID
-    this.INFURA_ID = INFURA_ID
-    this.response = null
+  constructor (
+      RPC_URL: string,
+      NETWORK_ID: string,
+      INFURA_ID: string,
+      statusHandlers: IStatusHandlers,
+      callback: IStatusHandlersCallBack
+    )
+    {
+      this.RPC_URL = RPC_URL
+      this.NETWORK_ID = NETWORK_ID
+      this.INFURA_ID = INFURA_ID
+      this.response = null
 
-    this.statusHandlers = statusHandlers
-  }
+      this.statusHandlers = statusHandlers
+      this.callback = callback
+    }
 
   async MetaMask(): Promise<void>  {
     let { ethereum }: any = window
@@ -30,6 +39,7 @@ export class Wallets implements IWallets {
             web3Provider: new ethers.providers.Web3Provider(ethereum),
           }
           this.statusHandlers.connectionSuccess(this.response)
+          this.callback.connectionSuccess(this.response)
         }
       } else {
         try {
@@ -42,6 +52,7 @@ export class Wallets implements IWallets {
             web3Provider: new ethers.providers.Web3Provider(ethereum),
           }
           this.statusHandlers.connectionSuccess(this.response)
+          this.callback.connectionSuccess(this.response)
         } catch (switchError: any) {
           if (switchError.code === 4902) {
             try {
@@ -50,7 +61,6 @@ export class Wallets implements IWallets {
                 params: [{
                   chainId: this.NETWORK_ID,
                   rpcUrls: [`${this.RPC_URL}${this.INFURA_ID}`],
-                  // rpcUrls: [`${this.RPC_URL}`],
                   chainName: 'newChain',
                   nativeCurrency: {
                     name: "bnb",
@@ -64,9 +74,11 @@ export class Wallets implements IWallets {
                 web3Provider: new ethers.providers.Web3Provider(ethereum),
               }
               this.statusHandlers.connectionSuccess(this.response)
+              this.callback.connectionSuccess(this.response)
             } catch (err) {
               console.log(err)
               this.statusHandlers.connectionFailed(err)
+              this.callback.connectionFailed(this.response)
             }
           }
         }
@@ -105,8 +117,10 @@ export class Wallets implements IWallets {
         web3Provider: new ethers.providers.Web3Provider(provider),
       }
       this.statusHandlers.connectionSuccess(this.response)
+      this.callback.connectionSuccess(this.response)
     } else if (!account) {
       this.statusHandlers.connectionFailed('Wallet not connected')
+      this.callback.connectionFailed(this.response)
     }
   }
 }
