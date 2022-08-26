@@ -17,8 +17,13 @@ module.exports = ({ development }) => ({
   mode: development ? 'development' : 'production',
 
   output: {
+    filename: 'index.js',
     path: path.resolve(__dirname, '../dist'),
-    filename: 'index.js'
+    library: 'index',
+    libraryExport: 'default',
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
+    globalObject: 'typeof self === \'undefined\' ? this : self'
   },
 
   devServer: {
