@@ -8,6 +8,7 @@ export class Wallet implements IWallet {
   INFURA_ID: any
   render: IRender = new Render()
   hooks: IStatusHandlers
+  provider: any
 
   constructor (options: IOptions) {
     this.RPC_URL = options.RPC_URL
@@ -15,26 +16,34 @@ export class Wallet implements IWallet {
     this.INFURA_ID = options.INFURA_ID,
 
     this.hooks = options.hooks
+    this.provider = null
   }
+
+  // async watcher (e: MouseEvent):Promise<void> {
+    // const event: HTMLElement = e.target as HTMLElement
+
+    // if (!event.closest('.gwallet-content')) {
+    //   this.render.bodyMainElement.remove()
+    //   this.render.style.remove()
+    //   this.render.bodyMainElement.removeEventListener('click', clickEvent)
+    // }
+    // if (event.closest('#MetaMask')) await this.MetaMask(callback)
+    // if (event.closest('#WalletConnect')) await this.WalletConnect(callback)
+  // }
 
   ConnectWallet (callback: IStatusHandlersCallBack):void {
     this.render.render()
     const clickEvent = async (e: MouseEvent) => {
-      
+
       const event: HTMLElement = e.target as HTMLElement
+
       if (!event.closest('.gwallet-content')) {
         this.render.bodyMainElement.remove()
         this.render.style.remove()
         this.render.bodyMainElement.removeEventListener('click', clickEvent)
       }
-      if (event.closest('#MetaMask')) {
-        console.log('connect MetaMask')
-        await this.MetaMask(callback)
-      }
-      if (event.closest('#WalletConnect')) {
-        console.log('connect WalletConnect')
-        await this.WalletConnect(callback)
-      }
+      if (event.closest('#MetaMask')) await this.MetaMask(callback)
+      if (event.closest('#WalletConnect')) await this.WalletConnect(callback)
     }
     this.render.bodyMainElement.addEventListener('click', clickEvent)
   }
@@ -47,7 +56,14 @@ export class Wallet implements IWallet {
       this.hooks,
       callback
     )
-    MetaMask.MetaMask()
+
+    MetaMask.MetaMask({
+      employee: (res: any) => {
+        this.provider = res
+        this.render.bodyMainElement.remove()
+        this.render.style.remove()
+      }
+    })
   }
 
   WalletConnect (callback: IStatusHandlersCallBack):void  {
@@ -58,10 +74,19 @@ export class Wallet implements IWallet {
       this.hooks,
       callback,
     )
-    WalletConnect.WalletConnect()
+
+    WalletConnect.WalletConnect({
+      employee: (res: any) => {
+        this.provider = res
+        this.render.bodyMainElement.remove()
+        this.render.style.remove()
+      }
+    })
+
   }
 
   disconnect () {
-    
+    if (this.provider === 'MetaMask') window.location.reload()
+    else if (this.provider !== 'MetaMask') this.provider.disconnect()
   }
 }

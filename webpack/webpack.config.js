@@ -1,34 +1,29 @@
 const path = require('path')
 const webpack = require('webpack')
-const ESLintPlugin = require('eslint-webpack-plugin')
-const HTMLWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const nodeExternals = require("webpack-node-externals");
 
 module.exports = ({ development }) => ({
-  entry: './src/index.ts',
+  context: path.resolve(__dirname, '../src'),
+  entry: './index.ts',
+
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  },
+
   devtool: development ? 'inline-source-map' : false,
   mode: development ? 'development' : 'production',
 
   output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'dist'),
-    library: 'index',
-    libraryExport: 'default',
-    libraryTarget: 'umd',
-    umdNamedDefine: true,
-    globalObject: 'typeof self === \'undefined\' ? this : self',
+    path: path.resolve(__dirname, '../dist'),
+    filename: 'index.js'
   },
-
-  target: 'web',
-  // externalsPresets: { node: true },
-  externals: [nodeExternals({
-    importType: 'umd'
-  })], 
 
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'dist')
+      directory: path.resolve(__dirname, '../dist')
     },
     historyApiFallback: true,
     open: true,
@@ -37,8 +32,18 @@ module.exports = ({ development }) => ({
     port: 3000
   },
 
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    extensions: ['.tsx', '.ts', '.js'],
 
     fallback: {
       "path": require.resolve("path-browserify"),
@@ -70,28 +75,22 @@ module.exports = ({ development }) => ({
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
     }),
+
     new webpack.ProvidePlugin({
       process: 'process/browser',
     }),
 
-    new ESLintPlugin({ extensions: ['ts'] }),
-
-    new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, 'src/index.html'),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, '../src/index.html'),
       filename: 'index.html'
+    }),
+
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(development ? 'development' : 'production')
+      }
     }),
 
     new CleanWebpackPlugin()
   ],
-
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        // use: ['babel-loader', 'ts-loader']
-        use: ['ts-loader']
-      },
-    ],
-  }
-});
+})

@@ -35,9 +35,11 @@ export interface IWallet {
   INFURA_ID: any
   render: IRender
   hooks: IStatusHandlers
+  provider: null
   ConnectWallet (callback: IStatusHandlersCallBack):void
   MetaMask (callback: IStatusHandlersCallBack): void
   WalletConnect (callback: IStatusHandlersCallBack):void
+  disconnect(): void
 }
 
 export interface IWallets {
@@ -48,7 +50,6 @@ export interface IWallets {
   statusHandlers: IStatusHandlers
   callback: IStatusHandlersCallBack
   provider: any
-  typeWallet: string | null
-  MetaMask(callback: IStatusHandlersCallBack): Promise<void>
-  WalletConnect(callback: IStatusHandlersCallBack): Promise<void>
+  MetaMask(employee:any): Promise<void>
+  WalletConnect(employee:any): Promise<void>
 }
