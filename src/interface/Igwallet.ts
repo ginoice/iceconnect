@@ -47,6 +47,8 @@ export interface IWallets {
   response: any
   statusHandlers: IStatusHandlers
   callback: IStatusHandlersCallBack
+  provider: any
+  typeWallet: string | null
   MetaMask(callback: IStatusHandlersCallBack): Promise<void>
   WalletConnect(callback: IStatusHandlersCallBack): Promise<void>
 }

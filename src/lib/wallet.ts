@@ -60,4 +60,8 @@ export class Wallet implements IWallet {
     )
     WalletConnect.WalletConnect()
   }
+
+  disconnect () {
+    
+  }
 }
