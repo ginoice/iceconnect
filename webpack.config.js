@@ -1,9 +1,9 @@
 const path = require('path')
 const webpack = require('webpack')
-const ESLintPlugin = require('eslint-webpack-plugin')
+// const ESLintPlugin = require('eslint-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const nodeExternals = require("webpack-node-externals");
+// const nodeExternals = require("webpack-node-externals");
 
 module.exports = ({ development }) => ({
   entry: './src/index.ts',
@@ -20,11 +20,11 @@ module.exports = ({ development }) => ({
     globalObject: 'typeof self === \'undefined\' ? this : self',
   },
 
-  target: 'web',
-  // externalsPresets: { node: true },
-  externals: [nodeExternals({
-    importType: 'umd'
-  })], 
+  // target: 'web',
+  // // externalsPresets: { node: true },
+  // externals: [nodeExternals({
+  //   importType: 'umd'
+  // })], 
 
   devServer: {
     static: {
@@ -74,7 +74,7 @@ module.exports = ({ development }) => ({
       process: 'process/browser',
     }),
 
-    new ESLintPlugin({ extensions: ['ts'] }),
+    // new ESLintPlugin({ extensions: ['ts'] }),
 
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, 'src/index.html'),
