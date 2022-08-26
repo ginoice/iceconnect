@@ -26,7 +26,12 @@
   ],
   "author": "Ginoice Team",
   "license": "ISC",
+  "homepage": "https://github.com/ginoice/iceconnect#readme",
   "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "babel-loader": "^8.2.4",
     "html-webpack-plugin": "^5.5.0",
     "ts-loader": "^9.3.1",
     "typescript": "^4.7.4",
