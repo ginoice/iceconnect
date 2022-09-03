@@ -11,8 +11,6 @@ export class Wallets implements IWallets {
   callback: IStatusHandlersCallBack
   provider: any
 
-  typeWallet: string | null
-
   constructor (
       RPC_URL: string,
       NETWORK_ID: string,
@@ -29,11 +27,9 @@ export class Wallets implements IWallets {
       this.statusHandlers = statusHandlers
       this.callback = callback
       this.provider = null
-
-      this.typeWallet = null
   }
 
-  async MetaMask(): Promise<void>  {
+  async MetaMask(employee:any): Promise<void>  {
     let { ethereum }: any = window
     if (typeof ethereum !== 'undefined') {
 
@@ -41,14 +37,16 @@ export class Wallets implements IWallets {
       this.callback.connecting('Connecting')
 
       const walletAddress:string[] = await ethereum.request({ method: 'eth_requestAccounts' })
+    
       if (ethereum.chainId == this.NETWORK_ID) {
         if (walletAddress) {
+
           this.response = {
             walletAddress: walletAddress[0],
             web3Provider: new ethers.providers.Web3Provider(ethereum),
           }
-
-          this.typeWallet = 'MetaMask'
+          
+          employee.employee('MetaMask')
           this.statusHandlers.connectionSuccess(this.response)
           this.callback.connectionSuccess(this.response)
 
@@ -63,13 +61,14 @@ export class Wallets implements IWallets {
             walletAddress: walletAddress[0],
             web3Provider: new ethers.providers.Web3Provider(ethereum),
           }
-
-          this.typeWallet = 'MetaMask'
+          
+          employee.employee('MetaMask')
           this.statusHandlers.connectionSuccess(this.response)
           this.callback.connectionSuccess(this.response)
   
         } catch (switchError: any) {
           if (switchError.code === 4902) {
+
             try {
               await ethereum.request({
                 method: 'wallet_addEthereumChain',
@@ -88,15 +87,15 @@ export class Wallets implements IWallets {
                 walletAddress: walletAddress[0],
                 web3Provider: new ethers.providers.Web3Provider(ethereum),
               }
-
-              this.typeWallet = 'MetaMask'
+              
+              employee.employee('MetaMask')
               this.statusHandlers.connectionSuccess(this.response)
               this.callback.connectionSuccess(this.response)
 
             } catch (err) {
               console.log(err)
               this.statusHandlers.connectionFailed(err)
-              this.callback.connectionFailed(this.response)
+              this.callback.connectionFailed(err)
             }
           }
         }
@@ -107,7 +106,7 @@ export class Wallets implements IWallets {
     }
   }
 
-  async WalletConnect(): Promise<void> {
+  async WalletConnect(employee:any): Promise<void> {
     const provider:any = new WalletConnectProvider({
       infuraId: this.INFURA_ID,
       rpc: {
@@ -137,19 +136,14 @@ export class Wallets implements IWallets {
         web3Provider: new ethers.providers.Web3Provider(provider),
       }
 
-      this.typeWallet = 'WalletConnect'
+      employee.employee(this.provider)
 
       this.statusHandlers.connectionSuccess(this.response)
       this.callback.connectionSuccess(this.response)
+
     } else if (!account) {
       this.statusHandlers.connectionFailed('Wallet not connected')
       this.callback.connectionFailed(this.response)
     }
   }
-
-  async disconectWallet (): Promise<void> {
-    if (this.typeWallet === 'MetaMask') window.location.reload()
-    if (this.typeWallet === 'WalletConnect') await this.provider.disconnect()
-  }
-
 }
