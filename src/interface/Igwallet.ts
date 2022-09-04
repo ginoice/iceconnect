@@ -40,6 +40,8 @@ export interface IWallet {
   MetaMask (callback: IStatusHandlersCallBack): void
   WalletConnect (callback: IStatusHandlersCallBack):void
   disconnect(): void
+  WalletConnect (callback: IStatusHandlersCallBack):void
+  autoConnect (callback: IStatusHandlersCallBack):void
 }
 
 export interface IWallets {

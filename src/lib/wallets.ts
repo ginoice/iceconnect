@@ -83,11 +83,12 @@ export class Wallets implements IWallets {
                   }
                 }]
               })
+
               this.response = {
                 walletAddress: walletAddress[0],
                 web3Provider: new ethers.providers.Web3Provider(ethereum),
               }
-              
+
               employee.employee('MetaMask')
               this.statusHandlers.connectionSuccess(this.response)
               this.callback.connectionSuccess(this.response)
@@ -125,7 +126,6 @@ export class Wallets implements IWallets {
     })
 
     this.provider = provider
-
     this.statusHandlers.connecting('Connecting')
 
     const account:any = await provider.enable()

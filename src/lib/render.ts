@@ -32,6 +32,12 @@ export class RenderStyle implements IRenderStyle {
         width: 100%;
         background-color: rgb(82, 107, 240);
         border-radius: 20px;
+
+        // background: rgba(217, 217, 217, 0.5);
+        // border: 1px solid #FFFFFF;
+        // backdrop-filter: blur(20px);
+        // border-radius: 0px 50px 50px 0px;
+
         // backdrop-filter: blur(2px);
         // box-shadow: inset 0 0 0 4964px rgb(255 255 255 / 71%);
       }
