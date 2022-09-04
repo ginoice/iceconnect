@@ -30,14 +30,14 @@ export class Wallet implements IWallet {
         this.render.style.remove()
         this.render.bodyMainElement.removeEventListener('click', clickEvent)
       }
-      if (event.closest('#MetaMask')) await this.MetaMask(callback)
-      if (event.closest('#WalletConnect')) await this.WalletConnect(callback)
+      if (event.closest('#MetaMask')) await this.useMetaMask(callback)
+      if (event.closest('#WalletConnect')) await this.useWalletConnect(callback)
     }
 
     this.render.bodyMainElement.addEventListener('click', clickEvent)
   }
 
-  MetaMask (callback: IStatusHandlersCallBack): void {
+  useMetaMask (callback: IStatusHandlersCallBack): void {
     const MetaMask = new Wallets (
       this.RPC_URL,
       this.NETWORK_ID,
@@ -57,7 +57,7 @@ export class Wallet implements IWallet {
     })
   }
 
-  WalletConnect (callback: IStatusHandlersCallBack):void  {
+  useWalletConnect (callback: IStatusHandlersCallBack):void  {
     const WalletConnect:any = new Wallets (
       this.RPC_URL,
       this.NETWORK_ID,
@@ -78,18 +78,24 @@ export class Wallet implements IWallet {
   }
 
   disconnect () {
-    if (this.provider === 'MetaMask') {
-      window.localStorage.removeItem('iceConnect')
-      window.location.reload()
-    } 
-    else if (this.provider !== 'MetaMask') {
-      window.localStorage.removeItem('iceConnect')
-      this.provider.disconnect()
+    try {
+      if (this.provider === 'MetaMask') {
+        window.localStorage.removeItem('iceConnect')
+        window.location.reload()
+      } 
+      else if (this.provider !== 'MetaMask') {
+        window.localStorage.removeItem('iceConnect')
+        this.provider.disconnect()
+      }
+    }
+    catch {
+      console.error('You need to connect a wallet. To connect use the method "ConnectWallet"')
     }
   }
 
   autoConnect (callback: IStatusHandlersCallBack): void {
-    if (window.localStorage.getItem('iceConnect') === 'MetaMask') this.MetaMask(callback)
-    else if (window.localStorage.getItem('iceConnect') === 'WalletConnect') this.WalletConnect(callback)
+    if (window.localStorage.getItem('iceConnect') === 'MetaMask') this.useMetaMask(callback)
+    else if (window.localStorage.getItem('iceConnect') === 'WalletConnect') this.useWalletConnect(callback)
+    else this.ConnectWallet(callback)
   }
 }

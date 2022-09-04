@@ -48,3 +48,13 @@ const btnDis:HTMLButtonElement = document.querySelector('.btn-disconect') as HTM
 btnDis.addEventListener('click', () => {
   wallet.disconnect()
 })
+
+const btnAutoConnect:HTMLButtonElement = document.querySelector('.btn-autoConnect') as HTMLButtonElement
+
+btnAutoConnect.addEventListener('click', () => {
+  wallet.autoConnect({
+    connecting: (res: any) => console.log(res),
+    connectionSuccess: (res: any) => console.log(res),
+    connectionFailed: (res:any) => console.log(res)
+  })
+})

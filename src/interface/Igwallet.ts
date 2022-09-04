@@ -37,10 +37,9 @@ export interface IWallet {
   hooks: IStatusHandlers
   provider: null
   ConnectWallet (callback: IStatusHandlersCallBack):void
-  MetaMask (callback: IStatusHandlersCallBack): void
-  WalletConnect (callback: IStatusHandlersCallBack):void
+  useMetaMask (callback: IStatusHandlersCallBack): void
+  useWalletConnect (callback: IStatusHandlersCallBack):void
   disconnect(): void
-  WalletConnect (callback: IStatusHandlersCallBack):void
   autoConnect (callback: IStatusHandlersCallBack):void
 }
 
