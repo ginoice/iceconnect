@@ -1,10 +1,10 @@
-import { Render } from "./lib/render";
+import { ModalWindow } from "./lib/render";
 import { Wallet } from "./lib/wallet";
 import { Wallets } from "./lib/wallets";
 import { ethers, BigNumber } from 'ethers';
 
 export {
-  Render,
+  ModalWindow,
   Wallet,
   Wallets,
   ethers,
@@ -12,7 +12,7 @@ export {
 }
 
 export default {
-  Render,
+  ModalWindow,
   Wallet,
   Wallets,
   ethers,

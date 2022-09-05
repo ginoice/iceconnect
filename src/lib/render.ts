@@ -1,4 +1,4 @@
-import { IRender, IRenderStyle } from '../interface/Igwallet'
+import { IRender, IRenderStyle, IStatusHandlersTypeWallet } from '../interface/Igwallet'
 
 export class RenderStyle implements IRenderStyle {
   style ():string {
@@ -92,14 +92,14 @@ export class RenderStyle implements IRenderStyle {
   }
 }
 
-export class Render implements IRender {
+export class ModalWindow implements IRender {
   headDomElement: HTMLHeadElement | null = document.querySelector('head')
   bodyDomElement: HTMLBodyElement | null = document.querySelector('body')
   bodyMainElement: HTMLDivElement  = document.createElement('div')
   renderStyle: IRenderStyle = new RenderStyle()
   style: HTMLStyleElement = document.createElement('style')
   
-  render ():void {
+  render (typeWallet: IStatusHandlersTypeWallet):void {
     this.style.insertAdjacentHTML('afterbegin', this.renderStyle.style())
 
     this.headDomElement?.appendChild(this.style) 
@@ -193,5 +193,30 @@ export class Render implements IRender {
 
     itemWalletWalletConnect.insertAdjacentHTML('afterbegin', iconWalletConnect)
     itemWalletWalletConnect.appendChild(walletConnectDescription)
+    
+    this.hendlerEvents(typeWallet)
+  }
+
+  removalRender ():void {
+    this.bodyMainElement.remove()
+    this.style.remove()
+  }
+
+  hendlerEvents (typeWallet: IStatusHandlersTypeWallet):void {
+    const event = (et: MouseEvent) => {
+      const elem: HTMLElement = et.target as HTMLElement
+
+      if (!elem.closest('.gwallet-content')) {
+        this.removalRender()
+        removalEvent()
+      }
+
+      else if (elem.closest('#MetaMask')) typeWallet.useMetaMask()
+      else if (elem.closest('#WalletConnect')) typeWallet.useWalletConnect()
+    }
+
+    const removalEvent = () => this.bodyMainElement.removeEventListener('click', event)
+
+    this.bodyMainElement.addEventListener('click', event)
   }
 }

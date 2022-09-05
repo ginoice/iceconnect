@@ -2,12 +2,19 @@ export interface IRenderStyle {
   style():string
 }
 
+export interface IStatusHandlersTypeWallet {
+  useMetaMask: () => void
+  useWalletConnect: () => void
+}
+
 export interface IRender {
   headDomElement: HTMLHeadElement | null
   bodyDomElement: HTMLBodyElement | null
   bodyMainElement: HTMLDivElement
   style: HTMLStyleElement
-  render(): void
+  render(typeWallet: IStatusHandlersTypeWallet): void,
+  removalRender(): void,
+  hendlerEvents(typeWallet: IStatusHandlersTypeWallet): void
 }
 
 export interface IStatusHandlers {
@@ -22,6 +29,7 @@ export interface IStatusHandlersCallBack {
   connectionFailed: (failed: string | any) => void
 }
 
+
 export interface IOptions {
   RPC_URL: string
   NETWORK_ID: string
@@ -33,7 +41,7 @@ export interface IWallet {
   RPC_URL: string
   NETWORK_ID: string
   INFURA_ID: any
-  render: IRender
+  modalWindow: IRender
   hooks: IStatusHandlers
   provider: null
   ConnectWallet (callback: IStatusHandlersCallBack):void

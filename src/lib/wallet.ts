@@ -1,12 +1,12 @@
 import { IOptions, IRender, IStatusHandlers, IWallet, IStatusHandlersCallBack } from '../interface/Igwallet'
-import { Render } from './render'
+import { ModalWindow } from './render'
 import { Wallets } from './wallets'
 
 export class Wallet implements IWallet {
   RPC_URL: string
   NETWORK_ID: string
   INFURA_ID: any
-  render: IRender = new Render()
+  modalWindow: IRender = new ModalWindow()
   hooks: IStatusHandlers
   provider: any
 
@@ -20,21 +20,10 @@ export class Wallet implements IWallet {
   }
 
   ConnectWallet (callback: IStatusHandlersCallBack):void {
-    this.render.render()
-
-    const clickEvent = async (e: MouseEvent) => {
-      const event: HTMLElement = e.target as HTMLElement
-
-      if (!event.closest('.gwallet-content')) {
-        this.render.bodyMainElement.remove()
-        this.render.style.remove()
-        this.render.bodyMainElement.removeEventListener('click', clickEvent)
-      }
-      if (event.closest('#MetaMask')) await this.useMetaMask(callback)
-      if (event.closest('#WalletConnect')) await this.useWalletConnect(callback)
-    }
-
-    this.render.bodyMainElement.addEventListener('click', clickEvent)
+    this.modalWindow.render({
+      useMetaMask: () => this.useMetaMask(callback),
+      useWalletConnect: () => this.useWalletConnect(callback)
+    })
   }
 
   useMetaMask (callback: IStatusHandlersCallBack): void {
@@ -51,8 +40,8 @@ export class Wallet implements IWallet {
     MetaMask.MetaMask({
       employee: (res: any) => {
         this.provider = res
-        this.render.bodyMainElement.remove()
-        this.render.style.remove()
+        this.modalWindow.bodyMainElement.remove()
+        this.modalWindow.style.remove()
       }
     })
   }
@@ -71,8 +60,8 @@ export class Wallet implements IWallet {
     WalletConnect.WalletConnect({
       employee: (res: any) => {
         this.provider = res
-        this.render.bodyMainElement.remove()
-        this.render.style.remove()
+        this.modalWindow.bodyMainElement.remove()
+        this.modalWindow.style.remove()
       }
     })
   }
