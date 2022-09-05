@@ -1,4 +1,4 @@
-import { ModalWindow } from "./lib/render";
+import { ModalWindow } from "./lib/modalWindow";
 import { Wallet } from "./lib/wallet";
 import { Wallets } from "./lib/wallets";
 import { ethers, BigNumber } from 'ethers';

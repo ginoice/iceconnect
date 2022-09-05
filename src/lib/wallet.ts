@@ -1,6 +1,6 @@
 import { IOptions, IRender, IStatusHandlers, IWallet, IStatusHandlersCallBack } from '../interface/Igwallet'
-import { ModalWindow } from './render'
-import { Wallets } from './wallets'
+import { ModalWindow } from './modalWindow'
+// import { Wallets } from './wallets'
 
 export class Wallet implements IWallet {
   RPC_URL: string
@@ -21,50 +21,53 @@ export class Wallet implements IWallet {
 
   ConnectWallet (callback: IStatusHandlersCallBack):void {
     this.modalWindow.render({
-      useMetaMask: () => this.useMetaMask(callback),
-      useWalletConnect: () => this.useWalletConnect(callback)
+      useMetaMask: () => console.log('new hendler'),
+      useWalletConnect: () => console.log('new hendler')
     })
+
+    console.log(callback)
   }
+  // this.useMetaMask(callback),
+  // useMetaMask (callback: IStatusHandlersCallBack): void {
+  //   const MetaMask = new Wallets (
+  //     this.RPC_URL,
+  //     this.NETWORK_ID,
+  //     this.INFURA_ID,
+  //     this.hooks,
+  //     callback
+  //   )
 
-  useMetaMask (callback: IStatusHandlersCallBack): void {
-    const MetaMask = new Wallets (
-      this.RPC_URL,
-      this.NETWORK_ID,
-      this.INFURA_ID,
-      this.hooks,
-      callback
-    )
+  //   window.localStorage.setItem('iceConnect', 'MetaMask')
 
-    window.localStorage.setItem('iceConnect', 'MetaMask')
+  //   MetaMask.MetaMask({
+  //     employee: (res: any) => {
+  //       this.provider = res
+  //       this.modalWindow.bodyMainElement.remove()
+  //       this.modalWindow.style.remove()
+  //     }
+  //   })
+  // }
 
-    MetaMask.MetaMask({
-      employee: (res: any) => {
-        this.provider = res
-        this.modalWindow.bodyMainElement.remove()
-        this.modalWindow.style.remove()
-      }
-    })
-  }
+  // this.useWalletConnect(callback)
+  // useWalletConnect (callback: IStatusHandlersCallBack):void  {
+  //   const WalletConnect:any = new Wallets (
+  //     this.RPC_URL,
+  //     this.NETWORK_ID,
+  //     this.INFURA_ID,
+  //     this.hooks,
+  //     callback,
+  //   )
 
-  useWalletConnect (callback: IStatusHandlersCallBack):void  {
-    const WalletConnect:any = new Wallets (
-      this.RPC_URL,
-      this.NETWORK_ID,
-      this.INFURA_ID,
-      this.hooks,
-      callback,
-    )
+  //   window.localStorage.setItem('iceConnect', 'WalletConnect')
 
-    window.localStorage.setItem('iceConnect', 'WalletConnect')
-
-    WalletConnect.WalletConnect({
-      employee: (res: any) => {
-        this.provider = res
-        this.modalWindow.bodyMainElement.remove()
-        this.modalWindow.style.remove()
-      }
-    })
-  }
+  //   WalletConnect.WalletConnect({
+  //     employee: (res: any) => {
+  //       this.provider = res
+  //       this.modalWindow.bodyMainElement.remove()
+  //       this.modalWindow.style.remove()
+  //     }
+  //   })
+  // }
 
   disconnect () {
     try {
@@ -83,8 +86,10 @@ export class Wallet implements IWallet {
   }
 
   autoConnect (callback: IStatusHandlersCallBack): void {
-    if (window.localStorage.getItem('iceConnect') === 'MetaMask') this.useMetaMask(callback)
-    else if (window.localStorage.getItem('iceConnect') === 'WalletConnect') this.useWalletConnect(callback)
+    if (window.localStorage.getItem('iceConnect') === 'MetaMask') console.log('new hendler')
+    // if (window.localStorage.getItem('iceConnect') === 'MetaMask') this.useMetaMask(callback)
+    else if (window.localStorage.getItem('iceConnect') === 'WalletConnect') console.log('new hendler')
+    // else if (window.localStorage.getItem('iceConnect') === 'WalletConnect') this.useWalletConnect(callback)
     else this.ConnectWallet(callback)
   }
 }
