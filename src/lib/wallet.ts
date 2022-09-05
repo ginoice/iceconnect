@@ -40,8 +40,8 @@ export class Wallet implements IWallet {
     MetaMask.MetaMask({
       employee: (res: any) => {
         this.provider = res
-        this.modalWindow.bodyMainElement.remove()
-        this.modalWindow.style.remove()
+        this.modalWindow.removalRender()
+        this.modalWindow.dataProxy.activeRemovalHendler = true
       }
     })
   }
@@ -60,8 +60,8 @@ export class Wallet implements IWallet {
     WalletConnect.WalletConnect({
       employee: (res: any) => {
         this.provider = res
-        this.modalWindow.bodyMainElement.remove()
-        this.modalWindow.style.remove()
+        this.modalWindow.removalRender()
+        this.modalWindow.dataProxy.activeRemovalHendler = true
       }
     })
   }

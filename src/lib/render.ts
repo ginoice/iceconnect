@@ -1,4 +1,4 @@
-import { IRender, IRenderStyle, IStatusHandlersTypeWallet } from '../interface/Igwallet'
+import { IRender, IRenderStyle, IStatusHandlersTypeWallet, IRenderData } from '../interface/Igwallet'
 
 export class RenderStyle implements IRenderStyle {
   style ():string {
@@ -98,6 +98,22 @@ export class ModalWindow implements IRender {
   bodyMainElement: HTMLDivElement  = document.createElement('div')
   renderStyle: IRenderStyle = new RenderStyle()
   style: HTMLStyleElement = document.createElement('style')
+
+  data: IRenderData = {
+    activeRemovalHendler: false
+  }
+
+  dataProxy = new Proxy(this.data, {
+    set: (target, prop, value) => {
+      if (prop === 'activeRemovalHendler') {
+        if (value === true) {
+          target[prop as string ] = value
+          this.hendlerEvents()
+        }
+      }
+      return true
+    }
+  })
   
   render (typeWallet: IStatusHandlersTypeWallet):void {
     this.style.insertAdjacentHTML('afterbegin', this.renderStyle.style())
@@ -202,21 +218,26 @@ export class ModalWindow implements IRender {
     this.style.remove()
   }
 
-  hendlerEvents (typeWallet: IStatusHandlersTypeWallet):void {
-    const event = (et: MouseEvent) => {
-      const elem: HTMLElement = et.target as HTMLElement
-
-      if (!elem.closest('.gwallet-content')) {
-        this.removalRender()
-        removalEvent()
+  hendlerEvents (typeWallet?: IStatusHandlersTypeWallet):void {
+    if (!this.dataProxy.activeRemovalHendler) {
+      var event = (et: MouseEvent) => {
+        const elem: HTMLElement = et.target as HTMLElement
+  
+        if (!elem.closest('.gwallet-content')) {
+          this.removalRender()
+          removalEvent()
+        }
+  
+        else if (elem.closest('#MetaMask')) typeWallet?.useMetaMask()
+        else if (elem.closest('#WalletConnect')) typeWallet?.useWalletConnect()
       }
-
-      else if (elem.closest('#MetaMask')) typeWallet.useMetaMask()
-      else if (elem.closest('#WalletConnect')) typeWallet.useWalletConnect()
+  
+      const removalEvent = () => this.bodyMainElement.removeEventListener('click', event)
+  
+      this.bodyMainElement.addEventListener('click', event)
+    } else {
+      const removalEvent = () => this.bodyMainElement.removeEventListener('click', event)
+      removalEvent()
     }
-
-    const removalEvent = () => this.bodyMainElement.removeEventListener('click', event)
-
-    this.bodyMainElement.addEventListener('click', event)
   }
 }

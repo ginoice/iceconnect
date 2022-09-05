@@ -2,6 +2,10 @@ export interface IRenderStyle {
   style():string
 }
 
+export interface IRenderData {
+  [index: string]: Boolean | any
+}
+
 export interface IStatusHandlersTypeWallet {
   useMetaMask: () => void
   useWalletConnect: () => void
@@ -12,9 +16,11 @@ export interface IRender {
   bodyDomElement: HTMLBodyElement | null
   bodyMainElement: HTMLDivElement
   style: HTMLStyleElement
-  render(typeWallet: IStatusHandlersTypeWallet): void,
-  removalRender(): void,
-  hendlerEvents(typeWallet: IStatusHandlersTypeWallet): void
+  data: IRenderData
+  dataProxy: IRenderData
+  render(typeWallet: IStatusHandlersTypeWallet): void
+  removalRender(): void
+  hendlerEvents(typeWallet?: IStatusHandlersTypeWallet): void
 }
 
 export interface IStatusHandlers {
