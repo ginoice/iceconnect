@@ -87,4 +87,5 @@ export class Wallet implements IWallet {
     else if (window.localStorage.getItem('iceConnect') === 'WalletConnect') this.useWalletConnect(callback)
     else this.ConnectWallet(callback)
   }
+
 }
