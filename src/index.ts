@@ -2,13 +2,15 @@ import { ModalWindow } from "./lib/render";
 import { Wallet } from "./lib/wallet";
 import { Wallets } from "./lib/wallets";
 import { ethers, BigNumber } from 'ethers';
+import { emitter } from './extensions/event-emitter'
 
 export {
   ModalWindow,
   Wallet,
   Wallets,
   ethers,
-  BigNumber
+  BigNumber,
+  emitter
 }
 
 export default {
@@ -16,7 +18,8 @@ export default {
   Wallet,
   Wallets,
   ethers,
-  BigNumber
+  BigNumber,
+  emitter
 }
 
 const RPC_URL: string = 'https://rinkeby.infura.io/v3/edefe768418643729b9f1d6194f9d193'
@@ -58,3 +61,5 @@ btnAutoConnect.addEventListener('click', () => {
     connectionFailed: (res:any) => console.log(res)
   })
 })
+
+emitter.emit('onStatus', 'lorem inpson')

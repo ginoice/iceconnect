@@ -1,6 +1,7 @@
 import { IOptions, IRender, IStatusHandlers, IWallet, IStatusHandlersCallBack } from '../interface/Igwallet'
 import { ModalWindow } from './render'
 import { Wallets } from './wallets'
+// import { emitter } from '../extensions/event-emitter'
 
 export class Wallet implements IWallet {
   RPC_URL: string
@@ -21,7 +22,9 @@ export class Wallet implements IWallet {
 
   ConnectWallet (callback: IStatusHandlersCallBack):void {
     this.modalWindow.render({
-      useMetaMask: () => this.useMetaMask(callback),
+      useMetaMask: () => {
+        this.useMetaMask(callback)
+      },
       useWalletConnect: () => this.useWalletConnect(callback)
     })
   }
