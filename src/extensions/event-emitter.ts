@@ -5,18 +5,18 @@ class EventEmitter {
     this.events = {};
   }
 
-  subscribe(eventName: string, callback?: any) {
+  subscribe(eventName: string, callback?: any):any {
     !this.events[eventName] && (this.events[eventName] = []);
     this.events[eventName].push(callback);
   }
 
-  unSubscribe(eventName: string, callback?: any) {
-    this.events[eventName] = this.events[eventName].filter((eventCallback: any) => callback !== eventCallback);
+  unSubscribe(eventName: string, callback?: any):any {
+    this.events[eventName] = this.events[eventName].filter((eventCallback: any):any => callback !== eventCallback);
   }
 
-  emit(eventName: any, args?: any) {
+  emit(eventName: any, args?: any):any {
     const event = this.events[eventName];
-    event && event.forEach((callback: any) => callback.call(null, args));
+    event && event.forEach((callback: any):any => callback.call(null, args));
   }
 }
 

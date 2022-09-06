@@ -22,8 +22,8 @@ export default {
   emitter
 }
 
-const RPC_URL: string = 'https://rinkeby.infura.io/v3/edefe768418643729b9f1d6194f9d193'
-const NETWORK_ID: string = '0x4'
+const RPC_URL = 'https://rinkeby.infura.io/v3/edefe768418643729b9f1d6194f9d193'
+const NETWORK_ID = '0x4'
 
 const btn:HTMLButtonElement = document.querySelector('.btn-connect') as HTMLButtonElement
 
@@ -61,5 +61,3 @@ btnAutoConnect.addEventListener('click', () => {
     connectionFailed: (res:any) => console.log(res)
   })
 })
-
-emitter.emit('onStatus', 'lorem inpson')
